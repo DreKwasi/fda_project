@@ -8,7 +8,7 @@ plotly
 # httpx
 aiohttp
 aiodns
-pymongo
+# pymongo
 google-cloud-storage
 firebase
 firebase-admin
