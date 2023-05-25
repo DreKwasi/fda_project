@@ -58,6 +58,7 @@ show_pages(
 data = data_parser.read_data("registered_products.parquet")
 
 if st.sidebar.button("Update Data", type="primary"):
+    st.cache_data.clear()
     with st.spinner("Accessing FDA Database"):
         asyncio.run(aiohttp_func.main_async_call())
 
