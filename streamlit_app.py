@@ -54,16 +54,18 @@ show_pages(
     ]
 )
 
-data = data_parser.read_data("assets/registered_products.parquet")
-
+# asyncio.run(aiohttp_func.main_async_call())
+data = data_parser.read_data("registered_products.parquet")
 
 if st.sidebar.button("Update Data", type="primary"):
     with st.spinner("Accessing FDA Database"):
         asyncio.run(aiohttp_func.main_async_call())
 
+
 st.sidebar.header("Filter")
 
 st.sidebar.write("Select A Product Category")
+
 product_category = st.sidebar.multiselect(
     "prod_cat", options=data["product_category"].unique(), label_visibility="collapsed"
 )

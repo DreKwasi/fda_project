@@ -49,7 +49,6 @@ async def get_data(session, url, params):
         json_data = await response.json()
     return json_data["data"]
 
-
 async def main_async_call():
     start = time.perf_counter()
     api_calls = []
@@ -132,7 +131,6 @@ async def main_async_call():
     print(f"Total Time (Uploading To Firestore): {end - start}")
     st.write(f"Total Time (Uploading To Firestore): {end - start}")
     
-
 
 if __name__ == "__main__":
     asyncio.run(main_async_call())

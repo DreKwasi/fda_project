@@ -6,6 +6,7 @@ import time
 import streamlit as st
 import json
 from google.oauth2 import service_account
+import pandas as pd
 
 # key_dict = json.loads(st.secrets["firestore_auth"])
 cred = st.secrets["firestore_auth"]
@@ -37,11 +38,13 @@ def upload_blob(source_file_name, destination_blob_name):
     print(f"File {source_file_name} uploaded to {destination_blob_name}.")
 
 
-# @st.cache_resource(show_spinner="Getting Data ...")
+@st.cache_resource(show_spinner="Accessing Database ...", ttl=3*3600)
 def download_blob(source_file_name, destination_blob_name):
     storage.Client(credentials=google_cred).bucket(bucket_name).blob(
         source_file_name
     ).download_to_filename(destination_blob_name)
+    data = pd.read_parquet(destination_blob_name)
+    return data
 
 
 if __name__ == "__main__":

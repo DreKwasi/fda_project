@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
+from .firestore_func import download_blob
 
 
-@st.cache_data(show_spinner="Parsing Data ... ")
+# @st.cache_data(show_spinner="Parsing Data ... ")
 def read_data(filename):
-    data = pd.read_parquet(filename)
+    data = download_blob(f"data/{filename}", f"assets/{filename}")
     # data.fillna("Not Specified", inplace=True)
     # 2023-04-11T14:51:18.000000Z
     data["created_at"] = pd.to_datetime(data["created_at"], format="ISO8601")
