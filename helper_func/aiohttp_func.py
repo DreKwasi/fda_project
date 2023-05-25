@@ -4,6 +4,7 @@ import time
 import copy
 import pandas as pd
 from helper_func.firestore_func import upload_blob
+import streamlit as st
 
 
 URL = "http://196.61.32.245:98/publicsearch"
@@ -119,6 +120,8 @@ async def main_async_call():
     end = time.perf_counter()
     
     print(f"Total Time (Api Calls): {end - start}")
+    st.write(f"Total Time (Api Calls): {end - start}")
+    
 
     start = time.perf_counter()
     upload_blob(
@@ -127,6 +130,8 @@ async def main_async_call():
     )
     end = time.perf_counter()
     print(f"Total Time (Uploading To Firestore): {end - start}")
+    st.write(f"Total Time (Uploading To Firestore): {end - start}")
+    
 
 
 if __name__ == "__main__":
