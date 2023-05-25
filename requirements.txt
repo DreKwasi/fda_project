@@ -1,0 +1,15 @@
+# selenium
+# webdriver-manager
+streamlit
+streamlit-extras
+pandas
+plotly-express
+plotly
+# httpx
+aiohttp
+aiodns
+pymongo
+google-cloud-storage
+firebase
+firebase-admin
+st-pages
