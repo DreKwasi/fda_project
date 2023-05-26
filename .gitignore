@@ -7,3 +7,4 @@ cred.json
 py_env
 mongo_func.py
 secrets.toml
+data.csv
