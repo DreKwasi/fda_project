@@ -38,26 +38,18 @@ def upload_blob(source_file_name, destination_blob_name):
     print(f"File {source_file_name} uploaded to {destination_blob_name}.")
 
 
-@st.cache_resource(show_spinner="Accessing Database ...", ttl=3*3600)
+@st.cache_resource(show_spinner="Accessing Database ...", ttl=3 * 3600)
 def download_blob(source_file_name, destination_blob_name):
-    start = time.perf_counter()
-    
     storage.Client(credentials=google_cred).bucket(bucket_name).blob(
         source_file_name
     ).download_to_filename(destination_blob_name)
     data = pd.read_parquet(destination_blob_name)
-    end = time.perf_counter()
-    st.write(f"Total Time: {end - start}")
     return data
 
 
 if __name__ == "__main__":
     start = time.perf_counter()
 
-    # upload_blob(
-    #     "registered_products.parquet",
-    #     "data/registered_products.parquet",
-    # )
     download_blob(
         "data/registered_products.parquet",
         "assets/registered_products.parquet",
