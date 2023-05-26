@@ -44,7 +44,7 @@ show_pages(
 
 # asyncio.run(aiohttp_func.main_async_call())
 data = data_parser.read_data("registered_products.parquet")
-
+st.write(st.experimental_user)
 if st.experimental_user in ["test@localhost.com", "andrewsboateng137@gmail.com"]:
     if st.sidebar.button("Update Data", type="primary"):
         st.cache_data.clear()
