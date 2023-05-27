@@ -1,24 +1,10 @@
-RELEVANT_COLS = [
-    "product_id",
-    "client_id",
-    "product_category",
-    "product_sub_category",
-    "registration_number",
-    "product_name",
-    "generic_name",
-    "strength",
-    "active_ingredient",
-    "representative_company_local_agent_applicant",
-    "manufacturer",
-    "registration_type",
-    "status",
-    "country_origin",
-    "region",
-    "applicant",
-    "registerd_importers",
-    "client_name",
-    "postal_address",
-    "sim_contact",
-    "telephone_number",
-    "email",
-]
+import streamlit as st
+
+
+def detailed_view(data, product_index):
+    if st.button("Go Back"):
+        st.experimental_set_query_params(product_index="all_products")
+        st.experimental_rerun()
+    data = data.iloc[int(product_index), :].values.tolist()
+    st.subheader("Product Details")
+    st.write(data)
