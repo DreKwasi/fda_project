@@ -4,7 +4,6 @@ import numpy as np
 from st_pages import Page, show_pages
 from helper_func import data_parser, styles, aiohttp_func, forms, utils
 import asyncio
-from streamlit_extras.no_default_selectbox import selectbox
 
 
 # import cProfile
@@ -33,7 +32,6 @@ st.set_page_config(
 
 # styles.load_css_file("styles/main.css")
 styles.local_css("styles.css")
-styles.remote_css("https://fonts.googleapis.com/icon?family=Material+Icons")
 
 show_pages(
     [
