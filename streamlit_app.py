@@ -26,7 +26,7 @@ RELEVANT_COLS = [
 
 st.set_page_config(
     page_title="Product Registry",
-    page_icon="🚨",
+    page_icon="🛍️",
     initial_sidebar_state="expanded",
     layout="wide",
 )
