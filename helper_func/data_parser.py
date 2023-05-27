@@ -2,7 +2,8 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 from .firestore_func import download_blob
-import time
+# import time
+from html import unescape
 
 
 # @st.cache_data(show_spinner="Parsing Data ... ")
@@ -27,9 +28,13 @@ def read_data(filename):
     data[string_cols] = (
         data[string_cols].fillna("Not Specified").apply(lambda x: x.str.title())
     )
-    data[string_cols] = data[string_cols].apply(lambda x: x.str.strip())
+    data[string_cols] = data[string_cols].apply(lambda x: x.str.rstrip())
+    data[string_cols] = data[string_cols].apply(lambda x: unescape(x))
+    
+    
+    
     data["product_name"] = (
-        data["product_name"].str.replace(r"&Quot;O&Quot;|\+", '', regex=True)
+        data["product_name"].str.replace(r"&Quot;O&Quot;|\+|\;|\#|Amp|\&039S", '', regex=True)
     )
 
     data["product_category"] = data["product_category"].apply(
@@ -39,10 +44,13 @@ def read_data(filename):
     # data.fillna("Not Specified", inplace=True)
     # 2023-04-11T14:51:18.000000Z
     data["created_at"] = pd.to_datetime(data["created_at"], format="ISO8601")
+    
     data["updated_at"] = pd.to_datetime(data["updated_at"], format="ISO8601")
 
     data = data.assign(registration_date=data["registration_date"].astype(str)[:10])
+    
     data = data.assign(expiry_date=data["expiry_date"].astype(str)[:10])
+    
 
     data.replace(to_replace={"<NA>": np.nan}, inplace=True)
 
