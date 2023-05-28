@@ -4,6 +4,7 @@ import numpy as np
 from st_pages import Page, show_pages
 from helper_func import data_parser, styles, aiohttp_func, forms, utils
 import asyncio
+from streamlit_lottie import st_lottie_spinner, st_lottie # pip install streamlit-lottie
 
 
 # import cProfile
@@ -30,23 +31,24 @@ st.set_page_config(
     layout="wide",
 )
 
-# styles.load_css_file("styles/main.css")
-styles.local_css("styles.css")
+styles.local_css("styles/main.css")
 
 show_pages(
     [
         Page("streamlit_app.py", "Product Indexing", "🕵️"),
         Page("st_pages/analyze.py", "Analytics", "📈"),
+        Page("st_pages/contact.py", "Contact Form", "📧"),
+        
     ]
 )
-
-
 data = data_parser.read_data("registered_products.parquet")
+
 if st.experimental_user.email in ["test@localhost.com", "andrewsboateng137@gmail.com"]:
-    if st.sidebar.button("Update Data", type="primary"):
+    if st.sidebar.button("Update Data from FDA", type="primary"):
         st.cache_data.clear()
-        with st.spinner("Accessing FDA Database"):
-            asyncio.run(aiohttp_func.main_async_call())
+        with st.spinner("Accessing FDA Database ..."):
+            with st_lottie_spinner(utils.load_lottiefile("assets/animations/wireless_data.json"), height=500):
+                asyncio.run(aiohttp_func.main_async_call())
 
 
 query_params = st.experimental_get_query_params()
