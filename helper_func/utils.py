@@ -1,5 +1,13 @@
 import streamlit as st
+import json
 
+
+# GitHub: https://github.com/andfanilo/streamlit-lottie
+# Lottie Files: https://lottiefiles.com/
+
+def load_lottiefile(filepath: str):
+    with open(filepath, "r") as f:
+        return json.load(f)
 
 def pagination(data, num):
     st.session_state.page_number_one = (

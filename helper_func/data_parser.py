@@ -4,15 +4,24 @@ import streamlit as st
 from .firestore_func import download_blob
 # import time
 from html import unescape
+from streamlit_lottie import st_lottie_spinner, st_lottie # pip install streamlit-lottie
+from helper_func import  utils
 
 
-# @st.cache_data(show_spinner="Parsing Data ... ")
 def read_data(filename):
     # start = time.perf_counter()
-    df = download_blob(f"data/{filename}", f"assets/{filename}")
+    with st.spinner("Accessing Cloud Database ..."):
+        with st_lottie_spinner(utils.load_lottiefile("assets/animations/data_transfer.json"), height=500):
+            df = download_blob(f"data/{filename}", f"assets/{filename}")
     # end = time.perf_counter()
     # print(f"Download Time: {end - start}")
 
+    data = clean_data(df)
+
+    return data
+
+@st.cache_data(show_spinner=False)
+def clean_data(df):
     string_cols = [
         "product_category",
         "product_sub_category",
@@ -60,5 +69,4 @@ def read_data(filename):
     data["expiry_date"] = pd.to_datetime(
         data["expiry_date"], yearfirst=True, format="%Y-%m-%d"
     )
-
     return data

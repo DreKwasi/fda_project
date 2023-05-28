@@ -38,7 +38,7 @@ def upload_blob(source_file_name, destination_blob_name):
     print(f"File {source_file_name} uploaded to {destination_blob_name}.")
 
 
-@st.cache_resource(show_spinner="Accessing Database ...", ttl=3 * 3600)
+@st.cache_data(show_spinner=False, ttl=3 * 3600)
 def download_blob(source_file_name, destination_blob_name):
     storage.Client(credentials=google_cred).bucket(bucket_name).blob(
         source_file_name
