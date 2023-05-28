@@ -1,16 +1,29 @@
 import pandas as pd
 import streamlit as st
-from helper_func.data_parser import human_format
+from helper_func import data_parser
 
 
 def number_of_applicants(data):
-    return human_format(data['applicant'][data['applicant'] != "Not Specified"].nunique())
+    return data_parser.human_format(
+        data["applicant"][data["applicant"] != "Not Specified"].nunique()
+    )
+
 
 def number_of_products(data):
-    return human_format(data['product_uuid'][data['product_uuid'] != "Not Specified"].nunique())
+    return data_parser.human_format(
+        data["product_uuid"][data["product_uuid"] != "Not Specified"].nunique()
+    )
+
 
 def number_of_registrations(data):
-    return human_format(data['registration_number'][data['registration_number'] != "Not Specified"].nunique())
+    return data_parser.human_format(
+        data["registration_number"][
+            data["registration_number"] != "Not Specified"
+        ].nunique()
+    )
+
 
 def number_of_renewals(data):
-    return human_format(data[data['registration_type'] == "Renewal"].shape[0])
+    return data_parser.human_format(
+        data[data["registration_type"] == "Renewal"].shape[0]
+    )
