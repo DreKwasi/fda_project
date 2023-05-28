@@ -74,7 +74,6 @@ def clean_data(df):
 
 def human_format(num):
     """Better formatting of large numbers
-    Kudos to:
     """
     num = float(f"{num:.3g}")
     magnitude = 0
