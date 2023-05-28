@@ -4,9 +4,9 @@ import streamlit as st
 from .firestore_func import download_blob
 # import time
 from html import unescape
-from streamlit_lottie import st_lottie_spinner, st_lottie # pip install streamlit-lottie
+from streamlit_lottie import st_lottie_spinner 
 from helper_func import  utils
-
+import re
 
 def read_data(filename):
     # start = time.perf_counter()
@@ -17,6 +17,7 @@ def read_data(filename):
     # print(f"Download Time: {end - start}")
 
     data = clean_data(df)
+    # data.to_csv("data.csv", index=False)
 
     return data
 
@@ -34,39 +35,51 @@ def clean_data(df):
         "client_name",
     ]
     data = df.copy()
+
+    
     data[string_cols] = (
         data[string_cols].fillna("Not Specified").apply(lambda x: x.str.title())
     )
     data[string_cols] = data[string_cols].apply(lambda x: x.str.rstrip())
-    data[string_cols] = data[string_cols].apply(lambda x: unescape(x))
+    data["product_name"] = data["product_name"].str.replace('&', "&", regex=False)
+
+    # data[string_cols] = data[string_cols].apply(lambda x: unescape(x))
     
-    
-    
-    data["product_name"] = (
-        data["product_name"].str.replace(r"&Quot;O&Quot;|\+|\;|\#|Amp|\&039S", '', regex=True)
+    data[string_cols] = (
+        data[string_cols].apply(lambda x: x.str.replace(r"&Quot;O&Quot;|\+|\;|\#|Amp|\'039'", '', regex=True))
     )
+    data[string_cols] = data[string_cols].apply(lambda x: x.str.replace("&039S", "'s", regex=False))
+    data[string_cols] = data[string_cols].apply(lambda x: x.str.replace("&039", "'", regex=False))
+    data[string_cols] = data[string_cols].apply(lambda x: x.str.replace("&#039;", "'", regex=False))
+    
+    # data[string_cols] = data[string_cols].apply(lambda x: x.str.replace(r"&Quot;O&Quot;|\+|\;|\#|Amp|\'039'|\&039|\&#039;", "'s", regex=True))
+    # data[string_cols] = data[string_cols].replace({
+    #     "&039S": "'s",
+    #     "&039": "'",
+    #     "&#039;": "'"
+    # }, regex=False)
 
     data["product_category"] = data["product_category"].apply(
         lambda x: x[:-3] if isinstance(x, str) and x.endswith(" And") else x
     )
 
     # data.fillna("Not Specified", inplace=True)
-    # 2023-04-11T14:51:18.000000Z
-    data["created_at"] = pd.to_datetime(data["created_at"], format="ISO8601")
-    
-    data["updated_at"] = pd.to_datetime(data["updated_at"], format="ISO8601")
-
-    data = data.assign(registration_date=data["registration_date"].astype(str)[:10])
-    
-    data = data.assign(expiry_date=data["expiry_date"].astype(str)[:10])
-    
+    # 2023-04-11T14:51:18.000000Z    
 
     data.replace(to_replace={"<NA>": np.nan}, inplace=True)
 
-    data["registration_date"] = pd.to_datetime(
-        data["registration_date"], yearfirst=True, format="mixed"
-    )
-    data["expiry_date"] = pd.to_datetime(
-        data["expiry_date"], yearfirst=True, format="%Y-%m-%d"
-    )
+
     return data
+
+
+def human_format(num):
+    """Better formatting of large numbers
+    Kudos to:
+    """
+    num = float(f"{num:.3g}")
+    magnitude = 0
+    while abs(num) >= 1000:
+        magnitude += 1
+        num /= 1000.0
+    num = f"{num:f}".rstrip("0").rstrip(".")
+    return f"{num}{['', 'K', 'M', 'B', 'T'][magnitude]}"
