@@ -13,3 +13,4 @@ google-cloud-storage
 firebase
 firebase-admin
 st-pages
+streamlit-lottie
