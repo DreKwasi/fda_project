@@ -120,7 +120,7 @@ async def main_async_call():
     end = time.perf_counter()
     
     print(f"Total Time (Api Calls): {end - start}")
-    st.write(f"Total Time (Api Calls): {end - start}")
+    # st.write(f"Total Time (Api Calls): {end - start}")
     
 
     start = time.perf_counter()
@@ -130,7 +130,7 @@ async def main_async_call():
     )
     end = time.perf_counter()
     print(f"Total Time (Uploading To Firestore): {end - start}")
-    st.write(f"Total Time (Uploading To Firestore): {end - start}")
+    # st.write(f"Total Time (Uploading To Firestore): {end - start}")
     
 
 if __name__ == "__main__":
