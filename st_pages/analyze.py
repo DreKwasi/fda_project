@@ -17,8 +17,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# styles.load_css_file("styles/main.css")
-styles.local_css("styles.css")
+styles.local_css("styles/main.css")
 
 data = data_parser.read_data("registered_products.parquet")
 
