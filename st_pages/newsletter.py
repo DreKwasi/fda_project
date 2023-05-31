@@ -30,7 +30,7 @@ with st.form("signup_form", clear_on_submit=True):
             key=None,
         )
     col1.write(
-        "**ProductBuddy** sends you weekly updates of Registered Products in your inbox."
+        "**HealthWatch** sends you weekly updates of Registered Products in your inbox."
     )
     col1.write("**Sign Up to Join the Waitlist** 👇")
 
