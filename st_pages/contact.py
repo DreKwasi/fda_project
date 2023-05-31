@@ -7,14 +7,14 @@ st.set_page_config(
     page_title="Product Registry",
     page_icon="🛍️",
     initial_sidebar_state="expanded",
-    layout="wide",
+    layout="centered",
 )
 
 styles.local_css("styles/main.css")
 styles.local_css("styles/contact_form.css")
 
-st.header("📥 Get In Touch With Me !")
-col1, col2 = st.columns([2, 2])
+st.subheader("📥 Get In Touch With Me !")
+col1, col2 = st.columns([2, 1])
 contact_form = """
 <form action="https://formsubmit.co/f019594dc785ee264df1d144b7593265 " method="POST">
      <input type="hidden" name="_captcha" value="false">
@@ -35,7 +35,7 @@ with col2:
         reverse=False,
         loop=True,
         quality="high", # medium ; high
-        height=700,
+        height=400,
         width=None,
         key=None,
     )
