@@ -15,3 +15,4 @@ firebase-admin
 st-pages
 streamlit-lottie
 aiolimiter
+deta
