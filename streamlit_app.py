@@ -112,6 +112,7 @@ def product_list_view(data):
     if country_origin_list:
         data = data[data["country_origin"].isin(country_origin_list)]
 
+    st.header("Health Watch")
     st.title("Product Indexing")
     st.write(
         "This is a Product Indexing/Analytics tool. Search through over 40,000 registered products in Ghana. "
