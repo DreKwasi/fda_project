@@ -1,5 +1,3 @@
-import pandas as pd
-import streamlit as st
 from helper_func import data_parser
 
 
@@ -19,7 +17,7 @@ def number_of_registrations(data):
     return data_parser.human_format(
         data["registration_number"][
             data["registration_number"] != "Not Specified"
-        ].nunique()
+        ].count()
     )
 
 
