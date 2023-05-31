@@ -1,6 +1,8 @@
 import streamlit as st
 from helper_func import utils
 from streamlit_lottie import st_lottie
+import datetime as dt
+from helper_func import db
 
 st.set_page_config(
     page_title="Product Registry",
@@ -10,12 +12,11 @@ st.set_page_config(
 )
 
 
-
-with st.form("signup_form", clear_on_submit=True):
+with st.form("signup_form", clear_on_submit=False):
     st.subheader("Receive Data on Registered Products In Your Inbox 😃")
-    
-    col1, col2 = st.columns([2,1])
-    
+
+    col1, col2 = st.columns([2, 1])
+
     with col2:
         lottie_comment = utils.load_lottiefile("assets/animations/coffee.json")
 
@@ -44,4 +45,15 @@ with st.form("signup_form", clear_on_submit=True):
 
 
 if submit:
-    pass
+    name = name.strip().title()
+    email = email.strip()
+    if utils.validate_email(email):
+        details = {"name": name.title(), "email": email, "created_at": dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+        response = db.update_user(details)
+        if response:
+            st.success("You have been added to the waitlist")
+            st.balloons()
+        else:
+            st.error("You are already registered")
+    else:
+        st.error("Invalid Email Address")
