@@ -11,7 +11,7 @@ import copy
 import pandas as pd
 from helper_func.firestore_func import upload_blob
 from aiolimiter import AsyncLimiter
-import json
+import streamlit as st
 from html import unescape
 
 URL = "http://196.61.32.245:98/publicsearch"
@@ -118,7 +118,7 @@ async def main_async_call():
     }
     string_keys = [key for key, value in data_types.items() if value == str]
     df[string_keys] = df[string_keys].fillna("Not Specified").apply(unescape)
-    
+
     df = df.astype(data_types)
 
     df["registration_date"] = pd.to_datetime(
@@ -147,6 +147,13 @@ async def main_async_call():
     end = time.perf_counter()
     print(f"Total Time (Uploading To Firestore): {end - start}")
     # st.write(f"Total Time (Uploading To Firestore): {end - start}")
+
+
+@st.cache_resource(show_spinner=False, ttl=3600)
+def connect_to_fda():
+    # asyncio.run(main_async_call())
+    time.sleep(5)
+    pass
 
 
 if __name__ == "__main__":
