@@ -1,10 +1,18 @@
 import streamlit as st
 import json
+import re
 
 
 # GitHub: https://github.com/andfanilo/streamlit-lottie
 # Lottie Files: https://lottiefiles.com/
 
+
+def validate_email(email):
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    if re.match(pattern, email):
+        return True
+    else:
+        return False
 
 @st.cache_data(show_spinner=False)
 def convert_df(df):
