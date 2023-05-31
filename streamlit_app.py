@@ -22,7 +22,7 @@ RELEVANT_COLS = [
 
 
 st.set_page_config(
-    page_title="Product Registry",
+    page_title="Health Watch",
     page_icon="🛍️",
     initial_sidebar_state="expanded",
     layout="wide",

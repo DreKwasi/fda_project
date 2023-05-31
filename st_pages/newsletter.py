@@ -5,7 +5,7 @@ import datetime as dt
 from helper_func import db
 
 st.set_page_config(
-    page_title="Product Registry",
+    page_title="Health Watch",
     page_icon="🛍️",
     initial_sidebar_state="expanded",
     layout="centered",

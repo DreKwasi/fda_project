@@ -4,7 +4,7 @@ from streamlit_lottie import st_lottie  # pip install streamlit-lottie
 
 
 st.set_page_config(
-    page_title="Product Registry",
+    page_title="Health Watch",
     page_icon="🛍️",
     initial_sidebar_state="expanded",
     layout="centered",

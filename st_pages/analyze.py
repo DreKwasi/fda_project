@@ -9,7 +9,7 @@ from streamlit_extras.metric_cards import style_metric_cards
 
 
 st.set_page_config(
-    page_title="Product Registry",
+    page_title="Health Watch",
     page_icon="🛍️",
     initial_sidebar_state="expanded",
     layout="wide",
