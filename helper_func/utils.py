@@ -5,6 +5,12 @@ import json
 # GitHub: https://github.com/andfanilo/streamlit-lottie
 # Lottie Files: https://lottiefiles.com/
 
+
+@st.cache_data(show_spinner=False)
+def convert_df(df):
+    return df.to_csv(index=False).encode("utf-8")
+
+
 def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
         return json.load(f)
