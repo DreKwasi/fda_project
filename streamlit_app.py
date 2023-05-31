@@ -32,8 +32,8 @@ styles.local_css("styles/main.css")
 
 show_pages(
     [
-        Page("streamlit_app.py", "Product Indexing", "🕵️"),
-        Page("st_pages/analyze.py", "Analytics", "📈"),
+        Page("streamlit_app.py", "Product Search", "🕵️"),
+        Page("st_pages/analyze.py", "Analytics", "🧮"),
         Page("st_pages/contact.py", "Give Feedback", "✍️"),
         Page("st_pages/newsletter.py", "Join the Newsletter", "✉"),
     ]
@@ -112,8 +112,8 @@ def product_list_view(data):
     if country_origin_list:
         data = data[data["country_origin"].isin(country_origin_list)]
 
-    st.header("Health Watch")
-    st.title("Product Indexing")
+    st.header("Welcome To Health Watch 👋")
+    st.subheader("Product Search 🔍")
     st.write(
         "This is a Product Indexing/Analytics tool. Search through over 40,000 registered products in Ghana. "
     )
