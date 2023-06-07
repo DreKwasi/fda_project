@@ -155,9 +155,11 @@ By proceeding to use this tool, you agree to these terms and conditions and unde
         RELEVANT_COLS.insert(0, "Show_Product_Details")
         main_data_holder = st.empty()
 
-        checked_df = main_data_holder.experimental_data_editor(
+        checked_df = main_data_holder.data_editor(
             filtered_data[RELEVANT_COLS],
             key="df_edit",
+            hide_index=True,
+            
         )
         product_row = checked_df[checked_df["Show_Product_Details"] == True]
         if not product_row.empty:
@@ -167,7 +169,7 @@ By proceeding to use this tool, you agree to these terms and conditions and unde
     else:
         start_index, end_index = utils.pagination(data, num)
         data = data.iloc[start_index:end_index, :]
-        st.dataframe(data[RELEVANT_COLS])
+        st.dataframe(data[RELEVANT_COLS], hide_index=True)
 
 
 if product_index == "all_products":
